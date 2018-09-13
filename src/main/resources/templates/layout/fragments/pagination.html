@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<th:block th:fragment="pagination (pagina)">	
+	<div class="col-sm-12  text-center" th:if="${not #lists.isEmpty(pagina.content)}">
+		<nav>
+			<ul class="pagination  pagination-sm">
+				<li th:class="${pagina.first} ? disabled"><a th:href="${pagina.url(pagina.number - 1)}" th:remove="${pagina.first} ? tag"><span>&laquo;</span></a></li>
+				<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}, paginaAtual=${pagina.number}">
+					<li th:class="${paginaAtual == numeroPagina} ? active">
+						<a th:href="${pagina.url(numeroPagina)}">[[${p}]]</a>
+					</li>
+				</th:block>
+				<li th:class="${pagina.last} ? disabled"><a th:href="${pagina.url(pagina.number + 1)}" th:remove="${pagina.last} ? tag"><span>&raquo;</span></a></li>
+			</ul>
+		</nav>
+	</div>
+</th:block>	
